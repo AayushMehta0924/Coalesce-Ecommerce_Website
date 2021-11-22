@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;700&display=swap" rel="stylesheet" />
+
+    <link rel="shortcut icon" href="./images/favicon.ico" type="image/x-icon" />
+
+    <!-- Carousel -->
+    <link rel="stylesheet" href="node_modules/@glidejs/glide/dist/css/glide.core.min.css" />
+    <link rel="stylesheet" href="node_modules/@glidejs/glide/dist/css/glide.theme.min.css" />
+
+    <!-- Animate On Scroll -->
+    <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+
+
+    <!-- Custom StyleSheet -->
+    <link rel="stylesheet" href="styles.css" />
+
+    <title>Coalesce</title>
+</head>
+
+<body>
+    <header id="header" class="header">
+        <div class="navigation">
+            <div class="container">
+                <nav class="nav">
+                    <div class="nav__hamburger">
+                        <svg>
+                            <use xlink:href="./images/sprite.svg#icon-menu"></use>
+                        </svg>
+                    </div>
+
+                    <div class="nav__logo">
+                        <a href="/" class="scroll-link">
+                            Coalesce
+                        </a>
+                    </div>
+
+                    <div class="nav__menu">
+                        <div class="menu__top">
+                            <span class="nav__category">Coalesce</span>
+                            <a href="#" class="close__toggle">
+                                <svg>
+                                    <use xlink:href="./images/sprite.svg#icon-cross"></use>
+                                </svg>
+                            </a>
+                        </div>
+                        <ul class="nav__list">
+                            <li class="nav__item">
+                                <a href="index.html" class="nav__link">Home</a>
+                            </li>
+                            <li class="nav__item">
+                                <a href="product.html" target="_self" class="nav__link">Products</a>
+                            </li>
+                            <li class="nav__item">
+                                <a href="index.html#news" class="nav__link">Blog</a>
+                            </li>
+                            <li class="nav__item">
+                                <a href="index.html#contact" class="nav__link">Contact</a>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="nav__icons">
+                        <a href="#" onclick="openAccount(this)" class="icon__item">
+                            <svg class="icon__search" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="32" height="32">
+                                <path fill="none" d="M0 0h24v24H0z" />
+                                <path
+                                    d="M12 2c5.52 0 10 4.48 10 10s-4.48 10-10 10S2 17.52 2 12 6.48 2 12 2zM6.023 15.416C7.491 17.606 9.695 19 12.16 19c2.464 0 4.669-1.393 6.136-3.584A8.968 8.968 0 0 0 12.16 13a8.968 8.968 0 0 0-6.137 2.416zM12 11a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"
+                                    fill="rgba(86,155,142,1)" />
+                            </svg>
+                        </a>
+                    
+                        <a href="cart.html" class="icon__item">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="28" height="32" class="icon__search">
+                                <path fill="none" d="M0 0h24v24H0z" />
+                                <path
+                                    d="M6 9h13.938l.5-2H8V5h13.72a1 1 0 0 1 .97 1.243l-2.5 10a1 1 0 0 1-.97.757H5a1 1 0 0 1-1-1V4H2V2h3a1 1 0 0 1 1 1v6zm0 14a2 2 0 1 1 0-4 2 2 0 0 1 0 4zm12 0a2 2 0 1 1 0-4 2 2 0 0 1 0 4z"
+                                    fill="rgba(86,155,142,1)" />
+                            </svg>
+                            <span id="cart__total">0</span>
+                        </a>
+                    </div>
+                </nav>
+            </div>
+        </div>
+
+        <div class="page__title-area">
+            <div class="container">
+                <div class="page__title-container">
+                    <ul class="page__titles">
+                        <li>
+                            <a href="/">
+                                <svg>
+                                    <use xlink:href="./images/sprite.svg#icon-home"></use>
+                                </svg>
+                            </a>
+                        </li>
+                        <li class="page__title">Account</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main id="main">
+        <dialog class="udlg" id="udialog">
+            <h2 style="margin-bottom: 2rem;">Add new item</h2>
+            <input style="position: absolute; top: 40%; left: 50%; transform: translate(-50%, -40%)" id="usel"
+                onchange="onFileSelect(this)" type="file">
+            <div style="display:none; align-items: center;" id="uhold">
+                <img id='uimg' class="iimg">
+                <div>
+                    <input id="pnm" style="padding: 0 10px; height: 3rem; margin-left: 2rem; display: block;"
+                        type="text" placeholder="your product name">
+                    <input id="pprc" style="padding: 0 10px; height: 3rem; margin-left: 2rem; margin-top: 2rem;"
+                        type="text" placeholder="product price">
+                </div>
+            </div>
+            <button onclick="uploadItem(this)"
+                style="cursor: pointer; position: absolute; bottom: 20px; left: 20px; right: 20px; width: calc(100% - 40px); border:0; height: 3rem; color: white; background-color: black;"
+                id="xbutton">Upload item</button>
+        </dialog>
+        <section class="section cart__area">
+            <div id="xcontainer" class="container">
+                <div class="headu">
+                    <h2 class="itemh">Items you're selling</h2>
+                    <button id="ubutton">Upload New Item</button>
+                </div>
+                
+            </div>
+        </section>
+
+        <!-- Facility Section -->
+        <section class="facility__section section" id="facility">
+            <div class="container">
+                <div class="facility__contianer">
+                    <div class="facility__box">
+                        <div class="facility-img__container">
+                            <svg>
+                                <use xlink:href="./images/sprite.svg#icon-airplane"></use>
+                            </svg>
+                        </div>
+                        <p>FREE SHIPPING WORLD WIDE</p>
+                    </div>
+
+                    <div class="facility__box">
+                        <div class="facility-img__container">
+                            <svg>
+                                <use xlink:href="./images/sprite.svg#icon-credit-card-alt"></use>
+                            </svg>
+                        </div>
+                        <p>100% MONEY BACK GUARANTEE</p>
+                    </div>
+
+                    <div class="facility__box">
+                        <div class="facility-img__container">
+                            <svg>
+                                <use xlink:href="./images/sprite.svg#icon-credit-card"></use>
+                            </svg>
+                        </div>
+                        <p>MANY PAYMENT GATWAYS</p>
+                    </div>
+
+                    <div class="facility__box">
+                        <div class="facility-img__container">
+                            <svg>
+                                <use xlink:href="./images/sprite.svg#icon-headphones"></use>
+                            </svg>
+                        </div>
+                        <p>24/7 ONLINE SUPPORT</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer id="footer" class="section footer">
+        <div class="container">
+            <div class="footer__top">
+                <div class="footer-top__box">
+                    <h3>EXTRAS</h3>
+                    <a href="#">Brands</a>
+                    <a href="#">Gift Certificates</a>
+                    <a href="#">Affiliate</a>
+                    <a href="#">Specials</a>
+                    <a href="#">Site Map</a>
+                </div>
+                <div class="footer-top__box">
+                    <h3>INFORMATION</h3>
+                    <a href="#">About Us</a>
+                    <a href="#">Privacy Policy</a>
+                    <a href="#">Terms & Conditions</a>
+                    <a href="#">Contact Us</a>
+                    <a href="#">Site Map</a>
+                </div>
+                <div class="footer-top__box">
+                    <h3>MY ACCOUNT</h3>
+                    <a href="#">My Account</a>
+                    <a href="#">Order History</a>
+                    <a href="#">Wish List</a>
+                    <a href="#">Newsletter</a>
+                    <a href="#">Returns</a>
+                </div>
+                <div class="footer-top__box">
+                    <h3>CONTACT US</h3>
+                    <div>
+                        <span>
+                            <svg>
+                                <use xlink:href="./images/sprite.svg#icon-location"></use>
+                            </svg>
+                        </span>
+                        SRMIST - KTR, 3rd Year, CSE
+                    </div>
+                    <div>
+                        <span>
+                            <svg>
+                                <use xlink:href="./images/sprite.svg#icon-envelop"></use>
+                            </svg>
+                        </span>
+                        am6849@srmist.edu.in, ms6635@srmist.edu.in
+                    </div>
+                    <div>
+                        <span>
+                            <svg>
+                                <use xlink:href="./images/sprite.svg#icon-phone"></use>
+                            </svg>
+                        </span>
+                        6355265581
+                    </div>
+                    <div>
+                        <span>
+                            <svg>
+                                <use xlink:href="./images/sprite.svg#icon-paperplane"></use>
+                            </svg>
+                        </span>
+                        9455776536
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="footer__bottom">
+            <div class="footer-bottom__box">
+
+            </div>
+            <div class="footer-bottom__box">
+
+            </div>
+        </div>
+        </div>
+    </footer>
+
+    <!-- End Footer -->
+
+    <!-- Go To -->
+
+    <a href="#header" class="goto-top scroll-link">
+        <svg>
+            <use xlink:href="./images/sprite.svg#icon-arrow-up"></use>
+        </svg>
+    </a>
+
+    <!-- Glide Carousel Script -->
+    <script src="node_modules/@glidejs/glide/dist/glide.min.js"></script>
+
+    <!-- Animate On Scroll -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+
+    <!-- Custom JavaScript -->
+    <script>
+        const udialog = document.getElementById('udialog');
+        const ubutton = document.getElementById("ubutton");
+        const uimg = document.getElementById('uimg')
+        const usel = document.getElementById('usel')
+        const uhold = document.getElementById('uhold')
+        const pprc = document.getElementById('pprc')
+        const pnm = document.getElementById('pnm')
+        const xbutton = document.getElementById('xbutton')
+        const container = document.getElementById('xcontainer')
+
+        ubutton.onclick = (e) => {
+            udialog.open = true
+        }
+
+
+        let selectedFile
+        const onFileSelect = (e) => {
+            const file = e.files[0]
+            const url = URL.createObjectURL(file)
+            uimg.src = url
+
+            usel.hidden = true
+            uhold.style.display = 'flex'
+
+            selectedFile = file
+        } 
+
+        const uploadItem = async(e) => {
+            if (!selectedFile) { return }
+
+            const name = pnm.value
+            const price = pprc.value
+
+            const product = new FormData()
+            product.append('name', name)
+            product.append('price', price)
+            product.append('file', selectedFile)
+
+            await fetch("http://localhost:8080/api/products", {
+                method: 'POST',
+                body: product,
+             })
+
+             setTimeout(() => {
+                addNewItem({
+                    name, price, img: URL.createObjectURL(selectedFile)
+                })
+                udialog.open = false
+             }, 500);
+        }
+
+        fetch("http://localhost:8080/api/products")
+        .then(res => res.json())
+        .then(products => {
+            products.forEach(addNewItem)
+        })
+
+        const addNewItem = (product) => {
+            const node = document.createElement('div')
+            node.innerHTML = `
+                    <div class="itemu">
+                    <img class="iimg" src="${product.img}" />
+                    <div class="fb2">
+                        <h3>${product.name}</h3>
+                        <div>Rs. ${product.price}</div>
+                    </div>
+                </div>
+                `
+            container.append(node)
+        }
+
+    </script>
+
+    <script src="./js/products.js"></script>
+    <script src="./js/index.js"></script>
+    <script src="./js/slider.js"></script>
+</body>
+
+</html>
